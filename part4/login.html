@@ -10,7 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="header">
+            <a href="./index.html"><img src="./assets/logo.png" alt="HBnB logo" class="logo"></a>
+            <a href="./login.html" id="login-button">Login</a>
+        </div>
+    </header>
     <main>
+        <div id="error">
+            <p id="error-message"></p>
+        </div>
         <form id="login-form">
             <h2>Login</h2>
             <label for="email"></label>
@@ -19,9 +28,12 @@
             <label for="password"></label>
             <input type="password" id="password" name="password" required placeholder="Enter your password">
             
-            <button type="submit">Login</button>
+            <button type="submit" id="submit-btn">Login</button>
         </form>
     </main>
+    <footer>
+        <p class="rights">2025 HBNB Evolution. All rights reserved</p>
+    </footer>
     <script src="scripts.js"></script>
 </body>
 </html>

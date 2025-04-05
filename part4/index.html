@@ -8,21 +8,29 @@
 </head>
 <body>
     <header>
-        <nav>
-            <a href="login.html" id="login-link">Login</a>
-        </nav>
+        <div class="header">
+            <a href="./index.html"><img src="./assets/logo.png" alt="HBnB logo" class="logo"></a>
+            <a href="./login.html" id="login-button">Login</a>
+        </div>
     </header>
     <main>
         <section id="filter">
-            <label for="price-filter">Max Price:</label>
-            <select id="price-filter">
-                <!-- Options will be populated dynamically -->
-            </select>
+            <h2>Available Places</h2>
+            <div>
+                <label for="price-filter">Max Price:</label>
+                <select id="price-filter">
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
         </section>
-        <section id="places-list">
-            <!-- List of places will be populated dynamically -->
-        </section>
+        <div id="all-places">
+                <!-- List of places will be populated dynamically -->
+
+        </div>
     </main>
+    <footer>
+        <p class="rights">2025 HBNB Evolution. All rights reserved</p>
+    </footer>
     <script src="scripts.js"></script>
 </body>
 </html>
