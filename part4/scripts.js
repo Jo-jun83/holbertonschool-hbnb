@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   checkAuthentication();
   fetchPlaces();
+  if (window.location.pathname.includes("place.html")) {
+    fetchPlaceDetails();
+  }
+  
 
   const loginForm = document.getElementById('login-form');
   const errorMsg = document.getElementById('error-message');
@@ -59,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkAuthentication() {
     const token = localStorage.getItem('authToken');
     const loginBtn = document.getElementById('login-button');
+    const reviewBtn = document.querySelector('.add-review');
+    const loginReview = document.querySelector('.login-review');
 
     if (loginBtn) {
       loginBtn.style.display = token ? 'none' : 'flex';
@@ -67,6 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (token) {
       fetchPlaces(token);
     }
+
+    if (reviewBtn) {
+      reviewBtn.style.display = token ? 'flex' : 'none';
+    }
+
+    if (loginReview) {
+      loginReview.style.display = token ? 'none' : 'flex';
+    }
+
+
   }
 
   let allPlaces = [];
@@ -114,25 +130,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   const priceFilter = document.getElementById('price-filter');
-  const priceOptions = [50, 75, 100, 150, 'All'];
 
-  priceOptions.forEach(price => {
-    const option = document.createElement('option');
-    option.value = price;
-    option.textContent = price;
-    priceFilter.appendChild(option);
-  });
+  if (priceFilter) {
+    const priceOptions = [10, 50, 100, 'All'];
+    priceOptions.forEach(price => {
+      const option = document.createElement('option');
+      option.value = price;
+      option.textContent = price;
+      priceFilter.appendChild(option);
+    });
+  
+    priceFilter.addEventListener('change', (event) => {
+      const selected = event.target.value;
+      if (selected === "All") {
+        displayPlaces(allPlaces);
+      } else {
+        const maxPrice = parseFloat(selected);
+        const filtered = allPlaces.filter(place => place.price <= maxPrice);
+        displayPlaces(filtered);
+      }
+    });
+  }
+  
+  
+  function getPlaceIdFromURL(place) {
+    // Extract the place ID from window.location.search
+    // Your code here
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+  }
 
-  priceFilter.addEventListener('change', (event) => {
-    const selected = event.target.value;
-    
-    if (selected === "All") {
-      displayPlaces(allPlaces);
-    } else {
-      const maxPrice = parseFloat(selected);
-      const filtered = allPlaces.filter(place => place.price <= maxPrice);
-      displayPlaces(filtered);
+async function fetchPlaceDetails() {
+  const placeId = getPlaceIdFromURL();
+  if (!placeId) return;
+
+  const token = localStorage.getItem('authToken');
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Impossible de récupérer les détails du lieu.");
     }
-  });
-    
+
+    const place = await response.json();
+    displayPlaceDetails(place);
+  } catch (error) {
+    console.error("Erreur:", error.message);
+  }
+  
+}
+
+function displayPlaceDetails(place) {
+  const placeContainer = document.getElementById("place-details");
+  if (!placeContainer) return;
+
+  placeContainer.innerHTML = `
+    <h3>${place.title}</h3>
+    <p><strong>Host:</strong> ${place.owner ? place.owner.first_name : "N/A"}</p>
+    <p>Price per night: ${place.price}$</p>
+    <p>Description: ${place.description}</p>
+    <p><strong>Amenities:</strong> ${place.amenities?.map(a => a.name).join(', ') || "Aucune"}</p>
+  `;
+}
+
+
 });
