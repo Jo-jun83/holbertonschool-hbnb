@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await submitReview(token, placeId, reviewText, rating, userId);
         await handleResponse(response, reviewForm);
-        fetchReviews(placeId, token); // Recharge les reviews après soumission
+        fetchReviews(placeId, token);
       } catch (error) {
         alert("Une erreur est survenue lors de la soumission : " + error.message);
       }
@@ -228,16 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({
                 text: reviewText,
                 rating: parseInt(rating),
-                user_id: userId.id,  // Assure-toi que userId.id est une chaîne
+                user_id: userId.id,
                 place_id: placeId
             })
         });
 
-        // Passe la réponse à handleResponse
         await handleResponse(response);
 
     } catch (error) {
-        // Si une erreur se produit, on affiche l'erreur ici
         console.error("Erreur lors de l'ajout de l'avis :", error.message);
         alert(`Une erreur est survenue lors de l'ajout de l'avis : ${error.message}`);
     }
@@ -250,7 +248,7 @@ async function handleResponse(response) {
       if (response.ok) {
           let result;
           try {
-              result = await response.json(); // Essaie de parser le JSON
+              result = await response.json();
               console.log('Réponse du serveur (result):', result);
               alert('Votre avis a bien été envoyé !');
           } catch (error) {
@@ -266,10 +264,6 @@ async function handleResponse(response) {
       console.error("Erreur de traitement de la réponse JSON:", error.message);
   }
 }
-
-
-  
-
 
   async function fetchReviews(placeId, token) {
     try {
