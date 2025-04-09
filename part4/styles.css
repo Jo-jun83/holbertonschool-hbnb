@@ -13,6 +13,9 @@
 body {
     background-color: #f4f4f4;
     color: #333;
+    display: flex;
+    flex-direction: column; /* Make body a column flex container */
+    min-height: 100vh;
 }
 
 header {
@@ -29,6 +32,7 @@ nav a {
 
 main {
     padding: 2rem;
+    flex-grow: 1;
 }
 
 footer {
@@ -39,6 +43,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
 }
 
 /*HEADER*/

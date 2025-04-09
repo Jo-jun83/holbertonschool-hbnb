@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await submitReview(token, placeId, reviewText, rating, userId);
         await handleResponse(response, reviewForm);
-        fetchReviews(placeId, token);
+        fetchReviews(placeId, token); 
       } catch (error) {
         alert("Une erreur est survenue lors de la soumission : " + error.message);
       }
@@ -258,7 +258,7 @@ async function handleResponse(response) {
       } else {
           const data = await response.json();
           console.error('Erreur de soumission:', data);
-          alert('Erreur lors de la soumission de l’avis.');
+          alert(`Erreur lors de la soumission de l’avis: ${data.error}`);
       }
   } catch (error) {
       console.error("Erreur de traitement de la réponse JSON:", error.message);
