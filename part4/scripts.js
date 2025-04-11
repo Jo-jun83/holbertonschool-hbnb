@@ -74,14 +74,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (loginBtn) loginBtn.style.display = 'none';
       if (reviewBtn) reviewBtn.style.display = 'flex';
       if (loginReview) loginReview.style.display = 'none';
+      if (logoutBtn) logoutBtn.style.display = 'flex';
 
       if (placeId) {
         displayReviewPlaceName(placeId, token);
+        displayPlaceName(placeId, token);
       }
     } else {
       if (loginBtn) loginBtn.style.display = 'flex';
       if (reviewBtn) reviewBtn.style.display = 'none';
       if (loginReview) loginReview.style.display = 'flex';
+      if (logoutBtn) logoutBtn.style.display = 'none'
     }
   }
 
@@ -168,10 +171,27 @@ document.addEventListener('DOMContentLoaded', () => {
     placeContainer.innerHTML = `
       <h3>${place.title}</h3>
       <p><strong>Host:</strong> ${place.owner ? place.owner.first_name : "N/A"}</p>
-      <p>Price per night: ${place.price}$</p>
-      <p>Description: ${place.description}</p>
+      <p><strong>Price per night:</strong> ${place.price}$</p>
+      <p><strong>Description:</strong> ${place.description}</p>
       <p><strong>Amenities:</strong> ${place.amenities?.map(a => a.name).join(', ') || "Aucune"}</p>
     `;
+  }
+
+  function displayPlaceName(placeId) {
+    fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then(response => response.json())
+    .then(place => {
+      const placeTitle =place.title; 
+      const placeTitleElement = document.getElementById('place-title');
+      if (placeTitleElement) {
+        placeTitleElement.textContent = placeTitle;
+      }
+    })
+    .catch(error => console.error('Erreur lors de l\'obtention du nom du lieu :', error));
   }
 
   function displayReviewPlaceName(placeId, token) {
@@ -182,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(response => response.json())
     .then(place => {
-      const placeName = place.title; 
+      const placeName =`Review for: ${place.title}`; 
       const placeNameElement = document.getElementById('place-name');
       if (placeNameElement) {
         placeNameElement.textContent = placeName;
@@ -317,6 +337,7 @@ async function handleResponse(response) {
       reviewElement.appendChild(textElement);
       reviewElement.appendChild(starsElement);
       reviewsContainer.appendChild(reviewElement);
+
     });
   }
 

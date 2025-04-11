@@ -66,6 +66,20 @@ footer {
     font-weight: 700;
 }
 
+#logout-btn {
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    background-color: #333;
+    border-radius: 40px;
+    width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 /*INDEX*/
 
 #filter {
@@ -217,7 +231,7 @@ footer {
     border: black solid;
     border-radius: 20px;
     width: 50%;
-    height: 600px;
+    height: 500px;
     margin: auto;
     padding: 2em;
     background-image: linear-gradient(to right bottom, #facc87, #f8c274, #f7b861, #f5ae4e, #f4a33a);
@@ -233,7 +247,7 @@ footer {
 #review-form h2 {
     margin-bottom: 1em;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 #review-form label {
@@ -289,10 +303,15 @@ footer {
   transform: scale(0.95);
 }
 
+#reviews {
+    padding-bottom: 1em;
+}
+
 /*PLACE DETAILS */
 
 #place-title {
     text-align: center;
+    font-size: 3em;
 }
 
 #place-details {
@@ -312,8 +331,13 @@ footer {
     padding-top: 1em;
 }
 
+#place-details h3 {
+    font-size: 1.5em;
+}
+
 #reviews-title {
     text-align: center;
+    font-size: 3em;
 }
 
 #reviews {
@@ -372,6 +396,7 @@ footer {
     text-decoration: none;
     background-image: linear-gradient(to right bottom, #facc87, #f8c274, #f7b861, #f5ae4e, #f4a33a);
     -webkit-box-shadow: 9px 6px 15px 9px rgba(0,0,0,0.83);
+    box-shadow: 9px 6px 15px 9px rgba(0,0,0,0.83);
     color: white;
     height: 48px;
     width: 170px;

@@ -13,9 +13,11 @@
         <div class="header">
             <a href="./index.html"><img src="./assets/logo.png" alt="HBnB logo" class="logo"></a>
             <a href="./login.html" id="login-button">Login</a>
+            <button id="logout-btn">Deconnexion</button>
         </div>
     </header>
     <main>
+        <h2 id="place-title"></h2>
         <section id="place-details">
             <!-- Place details will be populated dynamically -->
             
@@ -26,7 +28,7 @@
             
         </section>
         <form id="review-form">
-            <h2>Add a Review</h2>
+            <h2 id="place-name"></h2>
             <label for="review">Your Review:</label>
             <textarea id="review" name="review" required></textarea>
             <label for="rating">Rating:</label>
@@ -41,7 +43,7 @@
             <button type="submit">Submit Review</button>
         </form>
         <div class="login-review">
-            <a href="./login.html" id="login-details">Login</a>
+            <a href="./login.html" id="login-details">Add review</a>
         </div>
     </main>
     <footer>
