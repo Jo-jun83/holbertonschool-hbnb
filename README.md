@@ -1,4 +1,4 @@
-# HbNb Project - Part 3
+# HbNb Project
 
 ## Table of Contents
 
